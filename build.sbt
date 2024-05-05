@@ -192,18 +192,19 @@ lazy val sharedSettings = Seq(
     "-unchecked",
     "-deprecation",
     "-feature",
-    "-Xlint",
     "-Ywarn-dead-code",
     "-Xlog-free-terms"
   ),
   // Version specific options
   scalacOptions ++= (CrossVersion.partialVersion(scalaVersion.value) match {
     case Some((2, v)) if v > 12 =>
-      scalaLinterOptions ++ Seq("-Wunused:-implicits", "-Xfatal-warnings")
+      scalaLinterOptions ++ Seq("-Wunused:-implicits", "-Xfatal-warnings", "-Xlint")
     case Some((2, 12)) =>
-      scalaLinterOptions ++ scalaTwoTwelveDeprecatedOptions ++ Seq("-Ywarn-unused:-implicits", "-Xfatal-warnings")
+      scalaLinterOptions ++ scalaTwoTwelveDeprecatedOptions ++ Seq("-Ywarn-unused:-implicits", "-Xfatal-warnings", "-Xlint")
     case Some((2, 11)) =>
-      scalaLinterOptions ++ Seq("-target:jvm-1.8") ++ scalaTwoTwelveDeprecatedOptions
+      scalaLinterOptions ++ Seq("-target:jvm-1.8", "-Xlint") ++ scalaTwoTwelveDeprecatedOptions
+    case Some((3, v)) if v > 3 =>
+      Seq("-target:jvm-1.8", "-Xlint:all")
     case _ =>
       Seq("-target:jvm-1.8")
   }),
