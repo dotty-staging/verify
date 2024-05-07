@@ -192,7 +192,6 @@ lazy val sharedSettings = Seq(
     "-unchecked",
     "-deprecation",
     "-feature",
-    "-Xlint",
     "-Ywarn-dead-code",
     "-Xlog-free-terms"
   ),
